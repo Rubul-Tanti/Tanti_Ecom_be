@@ -13,32 +13,38 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id                           String   @id @default(uuid())
-  email                        String   @unique
-  emailVerified                Boolean  @default(false)
-
-  emailVerificationToken       String?
-  emailVerificationTokenExpires DateTime?
-
-  resetPasswordToken           String?
-  resetPasswordTokenExpires    DateTime?
-
-  userName                     String
-  phoneNumber                  String?
-
-  password                     String
-  role                         UserRole @default(USER)
-
-  lastLoginAt                  DateTime?
-  deletedAt                    DateTime?
-
-  createdAt                    DateTime @default(now())
-  updatedAt                    DateTime @updatedAt
-}
-
 enum UserRole {
   USER
   ADMIN
   SUPERADMIN
+}
+
+model User {
+  id                        String    @id @default(uuid())
+  email                     String    @unique
+  resetPasswordToken        String?
+  resetPasswordTokenExpires DateTime?
+
+  userName    String
+  phoneNumber String?
+  pincode     Int?
+  district    String?
+  postoffice  String?
+  state       String?
+  town        String?
+
+  password    String
+  role        UserRole  @default(USER)
+  lastLoginAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+}
+
+model Otp {
+  email     String   @unique
+  otp       Int
+  createdAt DateTime @default(now())
+
+  @@index([email])
 }

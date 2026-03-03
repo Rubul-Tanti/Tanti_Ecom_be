@@ -3,9 +3,15 @@ import cors from 'cors'
 import helmet from 'helmet'
 import { corsConfig } from './config/cors_config'
 import { RequestLogger } from './middleware/requestLogger'
+import userRouter from './routes/user'
+import { globalErrorHandler } from './middleware/errorHandler'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export const app=express()
 app.use(helmet())
+app.use(express.json())
 app.use(RequestLogger)
-
 app.use(cors(corsConfig))
+app.use('/api/user',userRouter)
+app.use(globalErrorHandler)
