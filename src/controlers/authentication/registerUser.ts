@@ -14,12 +14,13 @@ const registerUser=async(req:Request,res:Response)=>{
             logger.error('validation failed at register user',req.body)
             return res.status(400).json({message:validationResult.error.message})
         }
-        const {email,password,otp,username}=validationResult.data
+        const {email,password,otp,userName}=validationResult.data
         const userAlreadyExist=await prisma.user.findFirst({where:{email}})
         if(userAlreadyExist!==null){
             logger.warn("user already exist")
             return res.status(400).json({message:"user already exist"})
         }
+
         const otpObj=await prisma.otp.findFirst({where:{email,otp}})
         if(otpObj===null){
             return res.status(402).json({message:'otp does not match'})
@@ -29,12 +30,12 @@ const registerUser=async(req:Request,res:Response)=>{
         const remainingTime=(now-createdAt)/1000/60
         if(remainingTime>5){
             prisma.user.deleteMany({where:{email}})
-               return res.status(402).json({message:'otp expired, please try again later',remainingTime})
+               return res.status(402).json({message:'otp expired, please try again later'})
         }
             const hashedPassword=await hashPassword(password)
             const newUser=await prisma.user.create({data:{
                 email:email,
-                userName:username,
+                userName,
                 password:hashedPassword
             }})
             logger.info('new user create',newUser)
@@ -44,7 +45,7 @@ const registerUser=async(req:Request,res:Response)=>{
             const access_token=await generateAccessToken(newUser.id)
             const refresh_token=await generateRefreshToken(newUser.id)
 
-        res.status(200).cookie("refresh_token",refresh_token,{httpOnly:true,secure:true}).json({success:true,message:'user created successfully',data:{username:newUser.userName,email:newUser.email,},access_token})
+        res.status(200).cookie("refresh_token",refresh_token,{httpOnly:true,secure:true}).json({success:true,message:'user created successfully',data:{userName:newUser.userName,email:newUser.email,},access_token})
 
     }catch(e){
         logger.error("error registering user",e)

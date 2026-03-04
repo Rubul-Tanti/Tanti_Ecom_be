@@ -35,6 +35,7 @@ export type UserSumAggregateOutputType = {
 }
 
 export type UserMinAggregateOutputType = {
+  publicid: string | null
   id: string | null
   email: string | null
   resetPasswordToken: string | null
@@ -55,6 +56,7 @@ export type UserMinAggregateOutputType = {
 }
 
 export type UserMaxAggregateOutputType = {
+  publicid: string | null
   id: string | null
   email: string | null
   resetPasswordToken: string | null
@@ -75,6 +77,7 @@ export type UserMaxAggregateOutputType = {
 }
 
 export type UserCountAggregateOutputType = {
+  publicid: number
   id: number
   email: number
   resetPasswordToken: number
@@ -105,6 +108,7 @@ export type UserSumAggregateInputType = {
 }
 
 export type UserMinAggregateInputType = {
+  publicid?: true
   id?: true
   email?: true
   resetPasswordToken?: true
@@ -125,6 +129,7 @@ export type UserMinAggregateInputType = {
 }
 
 export type UserMaxAggregateInputType = {
+  publicid?: true
   id?: true
   email?: true
   resetPasswordToken?: true
@@ -145,6 +150,7 @@ export type UserMaxAggregateInputType = {
 }
 
 export type UserCountAggregateInputType = {
+  publicid?: true
   id?: true
   email?: true
   resetPasswordToken?: true
@@ -252,6 +258,7 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 export type UserGroupByOutputType = {
+  publicid: string | null
   id: string
   email: string
   resetPasswordToken: string | null
@@ -295,6 +302,7 @@ export type UserWhereInput = {
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
+  publicid?: Prisma.StringNullableFilter<"User"> | string | null
   id?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   resetPasswordToken?: Prisma.StringNullableFilter<"User"> | string | null
@@ -315,6 +323,7 @@ export type UserWhereInput = {
 }
 
 export type UserOrderByWithRelationInput = {
+  publicid?: Prisma.SortOrderInput | Prisma.SortOrder
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   resetPasswordToken?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -335,6 +344,7 @@ export type UserOrderByWithRelationInput = {
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
+  publicid?: string
   id?: string
   email?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
@@ -355,9 +365,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-}, "id" | "email">
+}, "id" | "publicid" | "email">
 
 export type UserOrderByWithAggregationInput = {
+  publicid?: Prisma.SortOrderInput | Prisma.SortOrder
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   resetPasswordToken?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -386,6 +397,7 @@ export type UserScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
+  publicid?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   resetPasswordToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -406,6 +418,7 @@ export type UserScalarWhereWithAggregatesInput = {
 }
 
 export type UserCreateInput = {
+  publicid?: string | null
   id?: string
   email: string
   resetPasswordToken?: string | null
@@ -426,6 +439,7 @@ export type UserCreateInput = {
 }
 
 export type UserUncheckedCreateInput = {
+  publicid?: string | null
   id?: string
   email: string
   resetPasswordToken?: string | null
@@ -446,6 +460,7 @@ export type UserUncheckedCreateInput = {
 }
 
 export type UserUpdateInput = {
+  publicid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -466,6 +481,7 @@ export type UserUpdateInput = {
 }
 
 export type UserUncheckedUpdateInput = {
+  publicid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -486,6 +502,7 @@ export type UserUncheckedUpdateInput = {
 }
 
 export type UserCreateManyInput = {
+  publicid?: string | null
   id?: string
   email: string
   resetPasswordToken?: string | null
@@ -506,6 +523,7 @@ export type UserCreateManyInput = {
 }
 
 export type UserUpdateManyMutationInput = {
+  publicid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -526,6 +544,7 @@ export type UserUpdateManyMutationInput = {
 }
 
 export type UserUncheckedUpdateManyInput = {
+  publicid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -546,6 +565,7 @@ export type UserUncheckedUpdateManyInput = {
 }
 
 export type UserCountOrderByAggregateInput = {
+  publicid?: Prisma.SortOrder
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   resetPasswordToken?: Prisma.SortOrder
@@ -570,6 +590,7 @@ export type UserAvgOrderByAggregateInput = {
 }
 
 export type UserMaxOrderByAggregateInput = {
+  publicid?: Prisma.SortOrder
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   resetPasswordToken?: Prisma.SortOrder
@@ -590,6 +611,7 @@ export type UserMaxOrderByAggregateInput = {
 }
 
 export type UserMinOrderByAggregateInput = {
+  publicid?: Prisma.SortOrder
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   resetPasswordToken?: Prisma.SortOrder
@@ -613,12 +635,12 @@ export type UserSumOrderByAggregateInput = {
   pincode?: Prisma.SortOrder
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type StringFieldUpdateOperationsInput = {
+  set?: string
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -644,6 +666,7 @@ export type DateTimeFieldUpdateOperationsInput = {
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  publicid?: boolean
   id?: boolean
   email?: boolean
   resetPasswordToken?: boolean
@@ -664,6 +687,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  publicid?: boolean
   id?: boolean
   email?: boolean
   resetPasswordToken?: boolean
@@ -684,6 +708,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  publicid?: boolean
   id?: boolean
   email?: boolean
   resetPasswordToken?: boolean
@@ -704,6 +729,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
+  publicid?: boolean
   id?: boolean
   email?: boolean
   resetPasswordToken?: boolean
@@ -723,12 +749,13 @@ export type UserSelectScalar = {
   deletedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "resetPasswordToken" | "resetPasswordTokenExpires" | "userName" | "phoneNumber" | "pincode" | "district" | "postoffice" | "state" | "town" | "password" | "role" | "lastLoginAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"publicid" | "id" | "email" | "resetPasswordToken" | "resetPasswordTokenExpires" | "userName" | "phoneNumber" | "pincode" | "district" | "postoffice" | "state" | "town" | "password" | "role" | "lastLoginAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
+    publicid: string | null
     id: string
     email: string
     resetPasswordToken: string | null
@@ -829,8 +856,8 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    * // Get first 10 Users
    * const users = await prisma.user.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
+   * // Only select the `publicid`
+   * const userWithPublicidOnly = await prisma.user.findMany({ select: { publicid: true } })
    * 
    */
   findMany<T extends UserFindManyArgs>(args?: Prisma.SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -874,9 +901,9 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    *   ]
    * })
    * 
-   * // Create many Users and only return the `id`
-   * const userWithIdOnly = await prisma.user.createManyAndReturn({
-   *   select: { id: true },
+   * // Create many Users and only return the `publicid`
+   * const userWithPublicidOnly = await prisma.user.createManyAndReturn({
+   *   select: { publicid: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -965,9 +992,9 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    *   ]
    * })
    * 
-   * // Update zero or more Users and only return the `id`
-   * const userWithIdOnly = await prisma.user.updateManyAndReturn({
-   *   select: { id: true },
+   * // Update zero or more Users and only return the `publicid`
+   * const userWithPublicidOnly = await prisma.user.updateManyAndReturn({
+   *   select: { publicid: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1169,6 +1196,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  * Fields of the User model
  */
 export interface UserFieldRefs {
+  readonly publicid: Prisma.FieldRef<"User", 'String'>
   readonly id: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly resetPasswordToken: Prisma.FieldRef<"User", 'String'>

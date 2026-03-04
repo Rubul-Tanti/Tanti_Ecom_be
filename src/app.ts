@@ -6,12 +6,21 @@ import { RequestLogger } from './middleware/requestLogger'
 import userRouter from './routes/user'
 import { globalErrorHandler } from './middleware/errorHandler'
 import dotenv from 'dotenv'
+import cookieParser from "cookie-parser"
+// import { prisma } from './db/prisma'
 dotenv.config()
 
 export const app=express()
 app.use(helmet())
 app.use(express.json())
+app.use(cookieParser())
 app.use(RequestLogger)
 app.use(cors(corsConfig))
 app.use('/api/user',userRouter)
 app.use(globalErrorHandler)
+
+// const deletef=async()=>{
+//     // await prisma.user.deleteMany({where:{email:'tantirubul5@gmail.com'}})
+//     console.log(await prisma.user.findMany())
+// }
+// deletef()
