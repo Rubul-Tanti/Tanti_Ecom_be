@@ -12,7 +12,28 @@
 export const UserRole = {
   USER: 'USER',
   ADMIN: 'ADMIN',
-  SUPERADMIN: 'SUPERADMIN'
+  MODERATOR: 'MODERATOR'
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const AuthProvider = {
+  EMAIL: 'EMAIL',
+  GOOGLE: 'GOOGLE',
+  FACEBOOK: 'FACEBOOK'
+} as const
+
+export type AuthProvider = (typeof AuthProvider)[keyof typeof AuthProvider]
+
+
+export const OrderStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]

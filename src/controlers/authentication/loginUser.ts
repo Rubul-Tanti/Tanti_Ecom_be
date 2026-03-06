@@ -9,14 +9,10 @@ import { generateAccessToken, generateRefreshToken } from '../../utils/generateT
 
 export const getsafeUser=(user:UserModel)=>{
 return {
-                distric:user.district,
                 email:user.email,
-                id:user.publicid,
-                pincode:user.pincode,
+                id:user.publicId,
                 phoneNumber:user.phoneNumber,
-                postOffice:user.postoffice,
                 userName:user.userName,
-                town:user.town,
             }
 }
 
@@ -24,8 +20,8 @@ const LoginUser=async(req:Request,res:Response)=>{
     try{
         const validationResult=await loginUserSchema.safeParse(req.body)
         if(validationResult.error){
-            logger.warn('error while validation',validationResult.error.message)
-            return res.status(400).json({error:validationResult.error.message,message:'validation error'})
+            logger.warn('error while validation',validationResult.error.flatten())
+            return res.status(400).json({error:validationResult.error.flatten(),message:'validation error'})
         }
         const {email,password}=validationResult.data
         const user=await prisma.user.findFirst({where:{email}})

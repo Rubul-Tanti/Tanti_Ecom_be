@@ -19,6 +19,7 @@ app.use(cors(corsConfig))
 app.use('/api/user',userRouter)
 app.use(globalErrorHandler)
 
+
 // const deletef=async()=>{
 //     // await prisma.user.deleteMany({where:{email:'tantirubul5@gmail.com'}})
 //     console.log(await prisma.user.findMany())

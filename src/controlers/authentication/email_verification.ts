@@ -2,7 +2,7 @@ import {prisma} from "../../db/prisma";
 import {Request,Response} from 'express'
 import emailValidation from "../../utils/validatons/emailvalidation";
 import logger from "../../utils/logger";
-import { sendOtp } from "../../services/sendOtp";
+import { sendOtp } from "../../services/emailService/sendOtp";
 import { generateOtp } from "../../utils/generateOtp";
 
 export const emailverification = async (req: Request, res: Response) => {
@@ -15,12 +15,11 @@ export const emailverification = async (req: Request, res: Response) => {
     }
     const { email } = result.data;
     const userAlreadyExist=await prisma.user.findFirst({where:{email}})
-    console.log(userAlreadyExist)
     if(userAlreadyExist!==null){
         logger.warn('user already exist',userAlreadyExist)
         return res.status(400).json({message:'user already exist'})
     }
-    const otp = generateOtp();
+    const otp = generateOtp().toString();
 
     try {
         const existingOtp = await prisma.otp.findFirst({
@@ -42,8 +41,7 @@ export const emailverification = async (req: Request, res: Response) => {
         }
 
         await prisma.otp.create({
-            data: { email, otp }
-        });
+           data:{email,otp}});
 
     } catch (dbError) {
         logger.error("Database error during OTP flow", { email, error: dbError });

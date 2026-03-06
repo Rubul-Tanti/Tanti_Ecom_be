@@ -12,7 +12,7 @@ const registerUser=async(req:Request,res:Response)=>{
         const validationResult=await registerUserSchema.safeParse(req.body)
         if(validationResult.error){
             logger.error('validation failed at register user',req.body)
-            return res.status(400).json({message:validationResult.error.message})
+            return res.status(400).json({message:validationResult.error.flatten()})
         }
         const {email,password,otp,userName}=validationResult.data
         const userAlreadyExist=await prisma.user.findFirst({where:{email}})

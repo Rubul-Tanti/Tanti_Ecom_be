@@ -1,11 +1,12 @@
 import jwt,{JwtPayload} from 'jsonwebtoken'
 import {Request,Response,NextFunction} from 'express'
 import { env } from '../config/env_config'
+import { prisma } from '../db/prisma'
 
 interface jwtcustomPayload extends JwtPayload {
   userId:string
 }
- const authorizationMiddleware=(req:Request,res:Response,next:NextFunction)=>{
+ const authorizationMiddleware=async(req:Request,res:Response,next:NextFunction)=>{
   try{
       const authorizationHeader=req.headers.authorization
       if(!authorizationHeader||!authorizationHeader.startsWith('Bearer ')){
@@ -13,7 +14,11 @@ interface jwtcustomPayload extends JwtPayload {
       }
       const token=authorizationHeader.split(" ")[1]
       const decode=jwt.verify(token,env.jwt_access_secret) as jwtcustomPayload
-        req.user=decode.userId
+      const user=await prisma.user.findUnique({where:{publicId:decode.userId}})
+      if(!user){
+        return res.status(401).json({message:'user not found'})
+      }
+      req.user=user;
         next()
         } catch (e: unknown) {
   if(e&& typeof e === "object"&& "name" in e && (e as unknown)==='TokenExpiredError'){

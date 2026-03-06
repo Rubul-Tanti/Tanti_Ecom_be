@@ -16,7 +16,7 @@ const envSchema = z.object({
 
   JWT_ACCESS_SECRET: z.string().min(5),
   JWT_REFRESH_SECRET: z.string().min(5),
-
+  FRONTEND_URL:z.string().url(),
   JWT_ACCESS_TOKEN_EXPIRES: z.string().default("15m"),
   JWT_REFRESH_TOKEN_EXPIRES: z.string().default("30d"),
 });
@@ -24,6 +24,7 @@ const envSchema = z.object({
 const parsedEnv = envSchema.parse(process.env);
 
 export const env = {
+  frontend_url:parsedEnv.FRONTEND_URL,
   port: parsedEnv.PORT,
   node_env: parsedEnv.NODE_ENV,
 

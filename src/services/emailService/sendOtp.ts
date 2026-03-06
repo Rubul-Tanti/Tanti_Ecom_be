@@ -1,8 +1,8 @@
-import {emailTransporter} from "../config/emailTransporter"
-import { env } from "../config/env_config"
-import logger from "../utils/logger"
+import {emailTransporter} from "../../config/emailTransporter"
+import { env } from "../../config/env_config"
+import logger from "../../utils/logger"
 
-export const sendOtp=async(email:string,otp:number)=>{
+export const sendOtp=async(email:string,otp:string)=>{
     logger.info('hit send otp ')
 const html = `
 <!DOCTYPE html>
