@@ -13,12 +13,14 @@ const envSchema = z.object({
   SMTP_PORT: z.coerce.number(), // converts string → number
   EMAIL: z.string().email(),
   EMAILPASS: z.string().min(1),
-
   JWT_ACCESS_SECRET: z.string().min(5),
   JWT_REFRESH_SECRET: z.string().min(5),
   FRONTEND_URL:z.string().url(),
   JWT_ACCESS_TOKEN_EXPIRES: z.string().default("15m"),
   JWT_REFRESH_TOKEN_EXPIRES: z.string().default("30d"),
+  CLOUDINARY_API:z.string(),
+  CLOUDINARY_API_SECRET:z.string(),
+  CLOUD_NAME:z.string(),
 });
 
 const parsedEnv = envSchema.parse(process.env);
@@ -37,4 +39,7 @@ export const env = {
   jwt_refresh_secret: parsedEnv.JWT_REFRESH_SECRET,
   jwt_access_token_expires: parsedEnv.JWT_ACCESS_TOKEN_EXPIRES,
   jwt_refresh_token_expires: parsedEnv.JWT_REFRESH_TOKEN_EXPIRES,
+  cloudinary_api:parsedEnv.CLOUDINARY_API,
+  cloudinary_api_secret:parsedEnv.CLOUDINARY_API_SECRET
+  ,cloud_name:parsedEnv.CLOUD_NAME
 };

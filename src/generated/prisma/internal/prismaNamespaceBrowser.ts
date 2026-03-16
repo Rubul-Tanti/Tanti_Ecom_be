@@ -56,6 +56,7 @@ export const ModelName = {
   Session: 'Session',
   Otp: 'Otp',
   Product: 'Product',
+  ProductVariant: 'ProductVariant',
   ProductImage: 'ProductImage',
   Review: 'Review',
   Category: 'Category',
@@ -89,10 +90,12 @@ export const UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   authProvider: 'authProvider',
+  googleId: 'googleId',
   resetPasswordToken: 'resetPasswordToken',
   resetPasswordTokenExpires: 'resetPasswordTokenExpires',
   twoFactorSecret: 'twoFactorSecret',
   twoFactorEnabled: 'twoFactorEnabled',
+  profilePicture: 'profilePicture',
   userName: 'userName',
   firstName: 'firstName',
   lastName: 'lastName',
@@ -163,18 +166,9 @@ export const ProductScalarFieldEnum = {
   description: 'description',
   moreAboutProduct: 'moreAboutProduct',
   categoryId: 'categoryId',
-  price: 'price',
-  discountPercentage: 'discountPercentage',
-  discountPrice: 'discountPrice',
-  sizes: 'sizes',
-  colors: 'colors',
   refundable: 'refundable',
   returnable: 'returnable',
   returnWindowDays: 'returnWindowDays',
-  stock: 'stock',
-  stockToDisplay: 'stockToDisplay',
-  sku: 'sku',
-  lowStockThreshold: 'lowStockThreshold',
   isActive: 'isActive',
   isFeatured: 'isFeatured',
   averageRating: 'averageRating',
@@ -186,13 +180,33 @@ export const ProductScalarFieldEnum = {
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
+export const ProductVariantScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  size: 'size',
+  color: 'color',
+  price: 'price',
+  discountPercentage: 'discountPercentage',
+  discountPrice: 'discountPrice',
+  stock: 'stock',
+  stockToDisplay: 'stockToDisplay',
+  lowStockThreshold: 'lowStockThreshold',
+  sku: 'sku',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductVariantScalarFieldEnum = (typeof ProductVariantScalarFieldEnum)[keyof typeof ProductVariantScalarFieldEnum]
+
+
 export const ProductImageScalarFieldEnum = {
   id: 'id',
   url: 'url',
   altText: 'altText',
   isPrimary: 'isPrimary',
   sortOrder: 'sortOrder',
-  productId: 'productId'
+  productId: 'productId',
+  productVariantId: 'productVariantId'
 } as const
 
 export type ProductImageScalarFieldEnum = (typeof ProductImageScalarFieldEnum)[keyof typeof ProductImageScalarFieldEnum]

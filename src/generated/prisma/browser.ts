@@ -43,6 +43,11 @@ export type Otp = Prisma.OtpModel
  */
 export type Product = Prisma.ProductModel
 /**
+ * Model ProductVariant
+ * 
+ */
+export type ProductVariant = Prisma.ProductVariantModel
+/**
  * Model ProductImage
  * 
  */

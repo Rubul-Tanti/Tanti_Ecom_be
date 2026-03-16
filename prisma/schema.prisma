@@ -33,23 +33,25 @@ model User {
   publicId String @unique @default(uuid())
 
   // Auth
-  email        String       @unique
-  password     String
-  role         UserRole     @default(USER)
-  authProvider AuthProvider @default(EMAIL)
+  email    String  @unique
+  password String?
 
-  resetPasswordToken        String?   @unique
+  role                      UserRole     @default(USER)
+  authProvider              AuthProvider @default(EMAIL)
+  googleId                  String?
+  resetPasswordToken        String?      @unique
   resetPasswordTokenExpires DateTime?
   twoFactorSecret           String?
-  twoFactorEnabled          Boolean   @default(false)
+  twoFactorEnabled          Boolean      @default(false)
 
   // Profile
-  userName    String
-  firstName   String?
-  lastName    String?
-  avatar      String?
-  phoneNumber String?
-  dateOfBirth DateTime?
+  profilePicture String?
+  userName       String
+  firstName      String?
+  lastName       String?
+  avatar         String?
+  phoneNumber    String?
+  dateOfBirth    DateTime?
 
   // Security
   lastLoginAt   DateTime?
@@ -123,51 +125,40 @@ model Otp {
 }
 
 model Product {
-  id               String    @id @default(uuid())
-  slug             String    @unique @default(uuid())
+  id               String  @id @default(uuid())
+  slug             String  @unique @default(uuid())
   name             String
   description      String
   moreAboutProduct String?
-  category         Category? @relation(fields: [categoryId], references: [id])
-  categoryId       String?
 
-  // Pricing
-  price              Float
-  discountPercentage Float  @default(0)
-  discountPrice      Float?
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
 
   // Variants
-  sizes  String[]
-  colors String[]
+  variants ProductVariant[]
 
   // Policy
   refundable       Boolean @default(false)
   returnable       Boolean @default(false)
   returnWindowDays Int?
 
-  // Inventory
-  stock             Int     @default(0)
-  stockToDisplay    Int     @default(0)
-  sku               String? @unique
-  lowStockThreshold Int     @default(5)
-
   // Status
   isActive   Boolean @default(true)
   isFeatured Boolean @default(false)
 
   // Relations
-  images     ProductImage[]
   reviews    Review[]
   orderItems OrderItem[]
-  tags       Tag[]          @relation("ProductTags")
+  tags       Tag[]       @relation("ProductTags")
 
   // Denormalized metrics
   averageRating Float? @default(0)
   reviewCount   Int    @default(0)
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  cartItems CartItem[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  cartItems     CartItem[]
+  productImages ProductImage[]
 
   @@index([name])
   @@index([slug])
@@ -176,14 +167,45 @@ model Product {
   @@index([isFeatured])
 }
 
-model ProductImage {
-  id        String  @id @default(uuid())
-  url       String
-  altText   String?
-  isPrimary Boolean @default(false)
-  sortOrder Int     @default(0)
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+model ProductVariant {
+  id        String         @id @default(uuid())
+  images    ProductImage[]
+  product   Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
+
+  // Variant attributes
+  size  String?
+  color String?
+
+  // Pricing
+  price              Float
+  discountPercentage Float  @default(0)
+  discountPrice      Float?
+
+  // Inventory
+  stock             Int
+  stockToDisplay    Int
+  lowStockThreshold Int @default(5)
+
+  sku String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([productId, size, color])
+  @@index([productId])
+}
+
+model ProductImage {
+  id               String          @id @default(uuid())
+  url              String
+  altText          String?
+  isPrimary        Boolean         @default(false)
+  sortOrder        Int             @default(0)
+  product          Product?        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId        String
+  productVariant   ProductVariant? @relation(fields: [productVariantId], references: [id])
+  productVariantId String?
 
   @@index([productId])
 }

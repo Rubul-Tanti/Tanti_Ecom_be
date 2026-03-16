@@ -3,25 +3,32 @@ import cors from 'cors'
 import helmet from 'helmet'
 import { corsConfig } from './config/cors_config'
 import { RequestLogger } from './middleware/requestLogger'
-import userRouter from './routes/user'
+import userRouter from './routes/userRoutes'
+import producRoutes from './routes/productRoutes'
 import { globalErrorHandler } from './middleware/errorHandler'
 import dotenv from 'dotenv'
 import cookieParser from "cookie-parser"
+import { prisma } from './db/prisma'
+import { categoryRouter } from './routes/categoryRoutes'
 // import { prisma } from './db/prisma'
 dotenv.config()
 
 export const app=express()
 app.use(helmet())
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(RequestLogger)
 app.use(cors(corsConfig))
 app.use('/api/user',userRouter)
+app.use('/api/product',producRoutes)
+app.use('/api/category',categoryRouter)
 app.use(globalErrorHandler)
 
-
 // const deletef=async()=>{
-//     // await prisma.user.deleteMany({where:{email:'tantirubul5@gmail.com'}})
-//     console.log(await prisma.user.findMany())
+//     // await prisma.user.deleteMany({where:{email:'rubultanti440@gmail.com'}})
+//     // console.log(await prisma.user.findMany())
+//     // console.log(await prisma.otp.findMany())
+//     await prisma.user.update({where:{email:'rubultanti440@gmail.com'},data:{role:'ADMIN'}})
 // }
 // deletef()

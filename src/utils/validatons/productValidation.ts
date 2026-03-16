@@ -1,56 +1,86 @@
-import { z } from 'zod'
-export const productSchema = z.object({
+import { z } from "zod"
 
-  name: z
-    .string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(255, 'Name must be at most 255 characters')
-    .trim(),
+export const ImagesSchema=z.object({
+  altText:z.string(),
+  isPrimary:z.boolean(),
+  sortOrder:z.number(),
+  productVariantId:z.string().optional(),
+  productId:z.string()
+})
 
-  description: z
+export const variantSchema = z.object({
+  size: z.string().min(1).max(20).optional(),
+  color: z
     .string()
-    .min(10, 'Description must be at least 10 characters')
-    .max(5000, 'Description must be at most 5000 characters')
-    .trim(),
-
-  moreAboutProduct: z
-    .string()
-    .max(10000, 'More about product must be at most 10000 characters')
+    .min(1)
+    .max(50)
     .trim()
+    .regex(
+      /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$|^[a-zA-Z]+$/,
+      "Color must be a valid name or hex code"
+    )
     .optional(),
 
-  categoryId: z.string().uuid('Invalid category ID').optional(),
-
   price: z
-    .number({error: 'Price is required' })
-    .positive('Price must be greater than 0')
-    .multipleOf(0.01, 'Price must have at most 2 decimal places'),
+    .number({ error: "Price is required" })
+    .positive("Price must be greater than 0")
+    .multipleOf(0.01),
 
   discountPercentage: z
     .number()
-    .min(0, 'Discount percentage cannot be negative')
-    .max(100, 'Discount percentage cannot exceed 100')
+    .min(0)
+    .max(100)
     .default(0),
 
   discountPrice: z
     .number()
-    .positive('Discount price must be greater than 0')
-    .multipleOf(0.01, 'Discount price must have at most 2 decimal places')
+    .positive()
+    .multipleOf(0.01)
     .optional(),
 
-  sizes: z
-    .array(z.string().min(1).max(20).trim())
-    .default([]),
+  stock: z
+    .number()
+    .int()
+    .min(0),
 
-  colors: z
-    .array(
-      z.string()
-        .min(1)
-        .max(50)
-        .trim()
-        .regex(/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$|^[a-zA-Z]+$/, 'Color must be a valid name or hex code')
-    )
-    .default([]),
+  stockToDisplay: z
+    .number()
+    .int()
+    .min(0),
+
+  sku: z
+    .string()
+    .min(3)
+    .max(100)
+    .trim().optional(),
+
+  lowStockThreshold: z
+    .number()
+    .int()
+    .min(0)
+    .default(5),
+    images:z.array(ImagesSchema).min(1,'Atleast one Image is required')
+  })
+export const productSchema = z.object({
+  name: z
+    .string()
+    .min(2)
+    .max(255)
+    .trim(),
+
+  description: z
+    .string()
+    .min(10)
+    .max(5000)
+    .trim(),
+
+  moreAboutProduct: z
+    .string()
+    .max(10000)
+    .trim()
+    .optional(),
+
+  categoryId: z.string().uuid().optional(),
 
   refundable: z.boolean().default(false),
 
@@ -58,62 +88,20 @@ export const productSchema = z.object({
 
   returnWindowDays: z
     .number()
-    .int('Return window must be a whole number')
-    .min(1, 'Return window must be at least 1 day')
-    .max(365, 'Return window cannot exceed 365 days')
+    .int()
+    .min(1)
+    .max(365)
     .optional(),
 
-  stock: z
-    .number()
-    .int('Stock must be a whole number')
-    .min(0, 'Stock cannot be negative')
-    .default(0),
-
-  stockToDisplay: z
-    .number()
-    .int('Stock to display must be a whole number')
-    .min(0, 'Stock to display cannot be negative')
-    .default(0),
-
-  sku: z
-    .string()
-    .min(3, 'SKU must be at least 3 characters')
-    .max(100, 'SKU must be at most 100 characters')
-    .trim()
-    .optional(),
-
-  lowStockThreshold: z
-    .number()
-    .int('Low stock threshold must be a whole number')
-    .min(0, 'Low stock threshold cannot be negative')
-    .default(5),
-
-  // ── Status ─────────────────────────────────────────────────────────────────
   isActive: z.boolean().default(true),
 
   isFeatured: z.boolean().default(false),
+
+  // ⭐ VARIANTS ARRAY
+  variants: z
+    .array(variantSchema)
+    .min(1, "At least one variant is required")
 })
-.refine(
-  (data) => !data.returnable || data.returnWindowDays !== undefined,
-  {
-    message: 'returnWindowDays is required when returnable is true',
-    path: ['returnWindowDays'],
-  }
-)
-.refine(
-  (data) => !data.discountPrice || data.discountPrice < data.price,
-  {
-    message: 'Discount price must be less than the original price',
-    path: ['discountPrice'],
-  }
-)
-.refine(
-  (data) => data.stockToDisplay <= data.stock,
-  {
-    message: 'Stock to display cannot exceed actual stock',
-    path: ['stockToDisplay'],
-  }
-)
 
 
 export const createProductSchema = productSchema

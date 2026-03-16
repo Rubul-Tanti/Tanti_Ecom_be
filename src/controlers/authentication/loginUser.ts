@@ -10,6 +10,8 @@ import { generateAccessToken, generateRefreshToken } from '../../utils/generateT
 export const getsafeUser=(user:UserModel)=>{
 return {
                 email:user.email,
+                profilePicture:user.profilePicture,
+                role:user.role,
                 id:user.publicId,
                 phoneNumber:user.phoneNumber,
                 userName:user.userName,
@@ -24,7 +26,7 @@ const LoginUser=async(req:Request,res:Response)=>{
             return res.status(400).json({error:validationResult.error.flatten(),message:'validation error'})
         }
         const {email,password}=validationResult.data
-        const user=await prisma.user.findFirst({where:{email}})
+        const user=await prisma.user.findFirst({where:{email,authProvider:'EMAIL'}})
         if(user===null){
             logger.warn('email or password is incorrect')
             return res.status(401).json({message:"email or password is incorrect"})
@@ -34,8 +36,8 @@ const LoginUser=async(req:Request,res:Response)=>{
             logger.warn('email or password is incorrect')
             return res.status(401).json({message:"email or password is incorrect"})
         }
-        const access_token=generateAccessToken(user.id)
-        const refresh_token=generateRefreshToken(user.id)
+        const access_token=generateAccessToken(user.publicId)
+        const refresh_token=generateRefreshToken(user.publicId)
         logger.info('login successfully',user.id)
             res.status(200).cookie("refresh_token",refresh_token,{httpOnly:true,secure:true}).json({success:true,message:"login successfully",data:getsafeUser(user),access_token})
     }catch(e){

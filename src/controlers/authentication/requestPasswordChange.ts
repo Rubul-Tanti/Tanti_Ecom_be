@@ -4,7 +4,6 @@ import {z} from "zod"
 import { prisma } from '../../db/prisma'
 import { generateResetPasswordToken } from '../../utils/resetPasswordToken'
 import sendResetPasswordToken from '../../services/emailService/sendResetToken'
-import { getSafeProduct } from '../product/createProducts'
 import { getsafeUser } from './loginUser'
 import logger from '../../utils/logger'
 const zod=z.object({

@@ -17,13 +17,13 @@ export const refreshUser=async(req:Request,res:Response)=>{
             return res.status(403).json({message:"no cookie found"})
         }
         const decode=jwt.verify(cookie,env.jwt_refresh_secret) as customJwtPayload
-        const user=await prisma.user.findUnique({where:{id:decode.userId}})
+        const user=await prisma.user.findUnique({where:{publicId:decode.userId}})
         if(!user){
             return res.status(404).json({message:'not found'})
         }
-        const accept_token=generateAccessToken(user.id)
-        const refresh_token=generateRefreshToken(user.id)
-        res.status(200).cookie('refresh_token',refresh_token,{httpOnly:true,secure:true}).json({message:"refreash successfully",success:true,data:getsafeUser(user),accept_token})
+        const access_token=generateAccessToken(user.publicId)
+        const refresh_token=generateRefreshToken(user.publicId)
+        res.status(200).cookie('refresh_token',refresh_token,{httpOnly:true,secure:true}).json({message:"refreash successfully",success:true,data:getsafeUser(user),access_token})
     }catch(e:unknown){
         if(e && typeof e ==="object" && "name" in e && (e as unknown)==='TokenExpiredError'){
             return res.status(404).json({message:'token expired'})

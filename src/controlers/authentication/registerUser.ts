@@ -5,6 +5,7 @@ import { hashPassword } from '../../utils/hashPassword'
 import { ApiError } from '../../middleware/errorHandler'
 import { generateAccessToken, generateRefreshToken } from '../../utils/generateToken'
 import logger from '../../utils/logger'
+import { getsafeUser } from './loginUser'
 
 const registerUser=async(req:Request,res:Response)=>{
     logger.info("hit register user")
@@ -42,10 +43,11 @@ const registerUser=async(req:Request,res:Response)=>{
             if(newUser==null){
                 throw new ApiError('error create new user',500)
             }
-            const access_token=await generateAccessToken(newUser.id)
-            const refresh_token=await generateRefreshToken(newUser.id)
+            await prisma.otp.delete({where:{email}})
+            const access_token=await generateAccessToken(newUser.publicId)
+            const refresh_token=await generateRefreshToken(newUser.publicId)
 
-        res.status(200).cookie("refresh_token",refresh_token,{httpOnly:true,secure:true}).json({success:true,message:'user created successfully',data:{userName:newUser.userName,email:newUser.email,},access_token})
+        res.status(200).cookie("refresh_token",refresh_token,{httpOnly:true,secure:true}).json({success:true,message:'user created successfully',data:getsafeUser(newUser),access_token})
 
     }catch(e){
         logger.error("error registering user",e)
