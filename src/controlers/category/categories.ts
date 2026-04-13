@@ -24,14 +24,7 @@ interface AuthUser {
   role: 'ADMIN' | 'MODERATOR' | 'USER'
 }
 
-// Extend Express's Request so req.user is properly typed throughout
-declare global {
-  namespace Express {
-    interface Request {
-      user?: AuthUser
-    }
-  }
-}
+
 
 // ── Safe serialiser ────────────────────────────────────────────────────────────
 

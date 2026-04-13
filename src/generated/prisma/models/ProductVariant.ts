@@ -49,6 +49,7 @@ export type ProductVariantMinAggregateOutputType = {
   productId: string | null
   size: string | null
   color: string | null
+  colorName: string | null
   price: number | null
   discountPercentage: number | null
   discountPrice: number | null
@@ -65,6 +66,7 @@ export type ProductVariantMaxAggregateOutputType = {
   productId: string | null
   size: string | null
   color: string | null
+  colorName: string | null
   price: number | null
   discountPercentage: number | null
   discountPrice: number | null
@@ -81,6 +83,7 @@ export type ProductVariantCountAggregateOutputType = {
   productId: number
   size: number
   color: number
+  colorName: number
   price: number
   discountPercentage: number
   discountPrice: number
@@ -117,6 +120,7 @@ export type ProductVariantMinAggregateInputType = {
   productId?: true
   size?: true
   color?: true
+  colorName?: true
   price?: true
   discountPercentage?: true
   discountPrice?: true
@@ -133,6 +137,7 @@ export type ProductVariantMaxAggregateInputType = {
   productId?: true
   size?: true
   color?: true
+  colorName?: true
   price?: true
   discountPercentage?: true
   discountPrice?: true
@@ -149,6 +154,7 @@ export type ProductVariantCountAggregateInputType = {
   productId?: true
   size?: true
   color?: true
+  colorName?: true
   price?: true
   discountPercentage?: true
   discountPrice?: true
@@ -252,6 +258,7 @@ export type ProductVariantGroupByOutputType = {
   productId: string
   size: string | null
   color: string | null
+  colorName: string | null
   price: number
   discountPercentage: number
   discountPrice: number | null
@@ -291,6 +298,7 @@ export type ProductVariantWhereInput = {
   productId?: Prisma.StringFilter<"ProductVariant"> | string
   size?: Prisma.StringNullableFilter<"ProductVariant"> | string | null
   color?: Prisma.StringNullableFilter<"ProductVariant"> | string | null
+  colorName?: Prisma.StringNullableFilter<"ProductVariant"> | string | null
   price?: Prisma.FloatFilter<"ProductVariant"> | number
   discountPercentage?: Prisma.FloatFilter<"ProductVariant"> | number
   discountPrice?: Prisma.FloatNullableFilter<"ProductVariant"> | number | null
@@ -309,6 +317,7 @@ export type ProductVariantOrderByWithRelationInput = {
   productId?: Prisma.SortOrder
   size?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
+  colorName?: Prisma.SortOrderInput | Prisma.SortOrder
   price?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
   discountPrice?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -332,6 +341,7 @@ export type ProductVariantWhereUniqueInput = Prisma.AtLeast<{
   productId?: Prisma.StringFilter<"ProductVariant"> | string
   size?: Prisma.StringNullableFilter<"ProductVariant"> | string | null
   color?: Prisma.StringNullableFilter<"ProductVariant"> | string | null
+  colorName?: Prisma.StringNullableFilter<"ProductVariant"> | string | null
   price?: Prisma.FloatFilter<"ProductVariant"> | number
   discountPercentage?: Prisma.FloatFilter<"ProductVariant"> | number
   discountPrice?: Prisma.FloatNullableFilter<"ProductVariant"> | number | null
@@ -349,6 +359,7 @@ export type ProductVariantOrderByWithAggregationInput = {
   productId?: Prisma.SortOrder
   size?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
+  colorName?: Prisma.SortOrderInput | Prisma.SortOrder
   price?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
   discountPrice?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -373,6 +384,7 @@ export type ProductVariantScalarWhereWithAggregatesInput = {
   productId?: Prisma.StringWithAggregatesFilter<"ProductVariant"> | string
   size?: Prisma.StringNullableWithAggregatesFilter<"ProductVariant"> | string | null
   color?: Prisma.StringNullableWithAggregatesFilter<"ProductVariant"> | string | null
+  colorName?: Prisma.StringNullableWithAggregatesFilter<"ProductVariant"> | string | null
   price?: Prisma.FloatWithAggregatesFilter<"ProductVariant"> | number
   discountPercentage?: Prisma.FloatWithAggregatesFilter<"ProductVariant"> | number
   discountPrice?: Prisma.FloatNullableWithAggregatesFilter<"ProductVariant"> | number | null
@@ -388,6 +400,7 @@ export type ProductVariantCreateInput = {
   id?: string
   size?: string | null
   color?: string | null
+  colorName?: string | null
   price: number
   discountPercentage?: number
   discountPrice?: number | null
@@ -406,6 +419,7 @@ export type ProductVariantUncheckedCreateInput = {
   productId: string
   size?: string | null
   color?: string | null
+  colorName?: string | null
   price: number
   discountPercentage?: number
   discountPrice?: number | null
@@ -422,6 +436,7 @@ export type ProductVariantUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -440,6 +455,7 @@ export type ProductVariantUncheckedUpdateInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -457,6 +473,7 @@ export type ProductVariantCreateManyInput = {
   productId: string
   size?: string | null
   color?: string | null
+  colorName?: string | null
   price: number
   discountPercentage?: number
   discountPrice?: number | null
@@ -472,6 +489,7 @@ export type ProductVariantUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -488,6 +506,7 @@ export type ProductVariantUncheckedUpdateManyInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -520,6 +539,7 @@ export type ProductVariantCountOrderByAggregateInput = {
   productId?: Prisma.SortOrder
   size?: Prisma.SortOrder
   color?: Prisma.SortOrder
+  colorName?: Prisma.SortOrder
   price?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
   discountPrice?: Prisma.SortOrder
@@ -545,6 +565,7 @@ export type ProductVariantMaxOrderByAggregateInput = {
   productId?: Prisma.SortOrder
   size?: Prisma.SortOrder
   color?: Prisma.SortOrder
+  colorName?: Prisma.SortOrder
   price?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
   discountPrice?: Prisma.SortOrder
@@ -561,6 +582,7 @@ export type ProductVariantMinOrderByAggregateInput = {
   productId?: Prisma.SortOrder
   size?: Prisma.SortOrder
   color?: Prisma.SortOrder
+  colorName?: Prisma.SortOrder
   price?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
   discountPrice?: Prisma.SortOrder
@@ -656,6 +678,7 @@ export type ProductVariantCreateWithoutProductInput = {
   id?: string
   size?: string | null
   color?: string | null
+  colorName?: string | null
   price: number
   discountPercentage?: number
   discountPrice?: number | null
@@ -672,6 +695,7 @@ export type ProductVariantUncheckedCreateWithoutProductInput = {
   id?: string
   size?: string | null
   color?: string | null
+  colorName?: string | null
   price: number
   discountPercentage?: number
   discountPrice?: number | null
@@ -718,6 +742,7 @@ export type ProductVariantScalarWhereInput = {
   productId?: Prisma.StringFilter<"ProductVariant"> | string
   size?: Prisma.StringNullableFilter<"ProductVariant"> | string | null
   color?: Prisma.StringNullableFilter<"ProductVariant"> | string | null
+  colorName?: Prisma.StringNullableFilter<"ProductVariant"> | string | null
   price?: Prisma.FloatFilter<"ProductVariant"> | number
   discountPercentage?: Prisma.FloatFilter<"ProductVariant"> | number
   discountPrice?: Prisma.FloatNullableFilter<"ProductVariant"> | number | null
@@ -733,6 +758,7 @@ export type ProductVariantCreateWithoutImagesInput = {
   id?: string
   size?: string | null
   color?: string | null
+  colorName?: string | null
   price: number
   discountPercentage?: number
   discountPrice?: number | null
@@ -750,6 +776,7 @@ export type ProductVariantUncheckedCreateWithoutImagesInput = {
   productId: string
   size?: string | null
   color?: string | null
+  colorName?: string | null
   price: number
   discountPercentage?: number
   discountPrice?: number | null
@@ -781,6 +808,7 @@ export type ProductVariantUpdateWithoutImagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -798,6 +826,7 @@ export type ProductVariantUncheckedUpdateWithoutImagesInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -813,6 +842,7 @@ export type ProductVariantCreateManyProductInput = {
   id?: string
   size?: string | null
   color?: string | null
+  colorName?: string | null
   price: number
   discountPercentage?: number
   discountPrice?: number | null
@@ -828,6 +858,7 @@ export type ProductVariantUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -844,6 +875,7 @@ export type ProductVariantUncheckedUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -860,6 +892,7 @@ export type ProductVariantUncheckedUpdateManyWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -907,6 +940,7 @@ export type ProductVariantSelect<ExtArgs extends runtime.Types.Extensions.Intern
   productId?: boolean
   size?: boolean
   color?: boolean
+  colorName?: boolean
   price?: boolean
   discountPercentage?: boolean
   discountPrice?: boolean
@@ -926,6 +960,7 @@ export type ProductVariantSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   productId?: boolean
   size?: boolean
   color?: boolean
+  colorName?: boolean
   price?: boolean
   discountPercentage?: boolean
   discountPrice?: boolean
@@ -943,6 +978,7 @@ export type ProductVariantSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   productId?: boolean
   size?: boolean
   color?: boolean
+  colorName?: boolean
   price?: boolean
   discountPercentage?: boolean
   discountPrice?: boolean
@@ -960,6 +996,7 @@ export type ProductVariantSelectScalar = {
   productId?: boolean
   size?: boolean
   color?: boolean
+  colorName?: boolean
   price?: boolean
   discountPercentage?: boolean
   discountPrice?: boolean
@@ -971,7 +1008,7 @@ export type ProductVariantSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ProductVariantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "size" | "color" | "price" | "discountPercentage" | "discountPrice" | "stock" | "stockToDisplay" | "lowStockThreshold" | "sku" | "createdAt" | "updatedAt", ExtArgs["result"]["productVariant"]>
+export type ProductVariantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "size" | "color" | "colorName" | "price" | "discountPercentage" | "discountPrice" | "stock" | "stockToDisplay" | "lowStockThreshold" | "sku" | "createdAt" | "updatedAt", ExtArgs["result"]["productVariant"]>
 export type ProductVariantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   images?: boolean | Prisma.ProductVariant$imagesArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -995,6 +1032,7 @@ export type $ProductVariantPayload<ExtArgs extends runtime.Types.Extensions.Inte
     productId: string
     size: string | null
     color: string | null
+    colorName: string | null
     price: number
     discountPercentage: number
     discountPrice: number | null
@@ -1433,6 +1471,7 @@ export interface ProductVariantFieldRefs {
   readonly productId: Prisma.FieldRef<"ProductVariant", 'String'>
   readonly size: Prisma.FieldRef<"ProductVariant", 'String'>
   readonly color: Prisma.FieldRef<"ProductVariant", 'String'>
+  readonly colorName: Prisma.FieldRef<"ProductVariant", 'String'>
   readonly price: Prisma.FieldRef<"ProductVariant", 'Float'>
   readonly discountPercentage: Prisma.FieldRef<"ProductVariant", 'Float'>
   readonly discountPrice: Prisma.FieldRef<"ProductVariant", 'Float'>

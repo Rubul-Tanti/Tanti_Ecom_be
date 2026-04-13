@@ -1594,6 +1594,7 @@ export const ProductVariantScalarFieldEnum = {
   productId: 'productId',
   size: 'size',
   color: 'color',
+  colorName: 'colorName',
   price: 'price',
   discountPercentage: 'discountPercentage',
   discountPrice: 'discountPrice',

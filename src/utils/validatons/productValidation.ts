@@ -1,15 +1,32 @@
 import { z } from "zod"
 
-export const ImagesSchema=z.object({
-  altText:z.string(),
-  isPrimary:z.boolean(),
-  sortOrder:z.number(),
-  productVariantId:z.string().optional(),
-  productId:z.string()
+/* ─── Helpers ───────────────────────────── */
+const booleanFromString = z.coerce.boolean()
+const jsonOrObject = <T extends z.ZodTypeAny>(schema: T) =>
+  z.preprocess((value) => {
+    if (typeof value === "string") {
+      try {
+        return JSON.parse(value)
+      } catch {
+        return value
+      }
+    }
+    return value
+  }, schema)
+
+/* ─── Image Schema ─────────────────────── */
+export const ImagesSchema = z.object({
+  altText: z.string(),
+  isPrimary: booleanFromString,
+  sortOrder: z.coerce.number().int().min(0).default(0).optional(),
+  productVariantId: z.string().optional(),
+  productId: z.string().optional(),
 })
 
+/* ─── Variant Schema ───────────────────── */
 export const variantSchema = z.object({
   size: z.string().min(1).max(20).optional(),
+  colorName:z.string(),
   color: z
     .string()
     .min(1)
@@ -21,88 +38,69 @@ export const variantSchema = z.object({
     )
     .optional(),
 
-  price: z
+  price: z.coerce
     .number({ error: "Price is required" })
     .positive("Price must be greater than 0")
     .multipleOf(0.01),
 
-  discountPercentage: z
+  discountPercentage: z.coerce
     .number()
     .min(0)
     .max(100)
     .default(0),
 
-  discountPrice: z
+  discountPrice: z.coerce
     .number()
     .positive()
     .multipleOf(0.01)
     .optional(),
 
-  stock: z
+  stock: z.coerce
     .number()
     .int()
     .min(0),
 
-  stockToDisplay: z
+  stockToDisplay: z.coerce
     .number()
     .int()
     .min(0),
 
-  sku: z
-    .string()
-    .min(3)
-    .max(100)
-    .trim().optional(),
-
-  lowStockThreshold: z
+  lowStockThreshold: z.coerce
     .number()
     .int()
     .min(0)
     .default(5),
-    images:z.array(ImagesSchema).min(1,'Atleast one Image is required')
-  })
+
+  images: z.array(ImagesSchema).min(1, "At least one image is required"),
+})
+
+/* ─── Product Schema ───────────────────── */
 export const productSchema = z.object({
-  name: z
-    .string()
-    .min(2)
-    .max(255)
-    .trim(),
+  name: z.string().min(2).max(255).trim(),
 
-  description: z
-    .string()
-    .min(10)
-    .max(5000)
-    .trim(),
+  description: z.string().min(10).max(5000).trim(),
 
-  moreAboutProduct: z
-    .string()
-    .max(10000)
-    .trim()
-    .optional(),
+  moreAboutProduct: z.string().max(10000).trim().optional(),
 
   categoryId: z.string().uuid().optional(),
 
-  refundable: z.boolean().default(false),
+  refundable: booleanFromString.default(false),
 
-  returnable: z.boolean().default(false),
+  returnable: booleanFromString.default(false),
 
-  returnWindowDays: z
+  returnWindowDays: z.coerce
     .number()
     .int()
     .min(1)
     .max(365)
     .optional(),
 
-  isActive: z.boolean().default(true),
+  isActive: booleanFromString.default(false),
 
-  isFeatured: z.boolean().default(false),
+  isFeatured: booleanFromString.default(false),
 
-  // ⭐ VARIANTS ARRAY
-  variants: z
-    .array(variantSchema)
-    .min(1, "At least one variant is required")
+  variants: jsonOrObject(z.array(variantSchema)),
 })
-
 
 export const createProductSchema = productSchema
 

@@ -34,16 +34,17 @@ export const getSafeProduct = (product: ProductWithVariant) => {
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
-        const role = req.user?.role
+    let uploads:{public_id:string,url:string}[]
+    const role = req.user?.role
     if (role !== "ADMIN" && role !== "MODERATOR") {
       return res.status(403).json({ message: "not authorized" })
     }
     const files = req.files as Express.Multer.File[]
-    let uploads:{public_id:string,url:string}[]
+
     if (!files?.length) {
     return res.status(400).json({message:'atleast one pic is required'})
     }
-
+    console.log(req.body)
 
     const validationResult = createProductSchema.safeParse(req.body)
 
@@ -57,7 +58,7 @@ export const createProduct = async (req: Request, res: Response) => {
     const data = validationResult.data
     if(files.length){
       uploads = await Promise.all(
-        files.map(file => uploadToCloudinary(file))
+        files.map(file =>uploadToCloudinary(file))
       )
     }
     const product = await prisma.product.create({
@@ -76,6 +77,7 @@ export const createProduct = async (req: Request, res: Response) => {
           create: data.variants.map((v, i) => ({
             size: v.size,
             color: v.color,
+            colorName:v.colorName,
             price: v.price,
             discountPrice: v.discountPrice,
             discountPercentage: v.discountPercentage,
@@ -86,7 +88,7 @@ export const createProduct = async (req: Request, res: Response) => {
 
             images: {
               create: v.images.map((img, i) => ({
-                url:uploads[i].url,
+                url:uploads.find((u) => u.public_id.split('-')[0] ===img.altText)?.url||'',
                 altText: img.altText,
                 isPrimary: img.isPrimary,
                 sortOrder: i,

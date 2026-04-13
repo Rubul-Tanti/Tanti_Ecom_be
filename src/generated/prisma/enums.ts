@@ -9,22 +9,21 @@
 * 🟢 You can import this file directly.
 */
 
+export const AuthProvider = {
+  EMAIL: 'EMAIL',
+  GOOGLE: 'GOOGLE'
+} as const
+
+export type AuthProvider = (typeof AuthProvider)[keyof typeof AuthProvider]
+
+
 export const UserRole = {
-  USER: 'USER',
   ADMIN: 'ADMIN',
+  USER: 'USER',
   MODERATOR: 'MODERATOR'
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
-
-
-export const AuthProvider = {
-  EMAIL: 'EMAIL',
-  GOOGLE: 'GOOGLE',
-  FACEBOOK: 'FACEBOOK'
-} as const
-
-export type AuthProvider = (typeof AuthProvider)[keyof typeof AuthProvider]
 
 
 export const OrderStatus = {

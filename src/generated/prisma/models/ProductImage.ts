@@ -197,7 +197,7 @@ export type ProductImageGroupByOutputType = {
   altText: string | null
   isPrimary: boolean
   sortOrder: number
-  productId: string
+  productId: string | null
   productVariantId: string | null
   _count: ProductImageCountAggregateOutputType | null
   _avg: ProductImageAvgAggregateOutputType | null
@@ -230,7 +230,7 @@ export type ProductImageWhereInput = {
   altText?: Prisma.StringNullableFilter<"ProductImage"> | string | null
   isPrimary?: Prisma.BoolFilter<"ProductImage"> | boolean
   sortOrder?: Prisma.IntFilter<"ProductImage"> | number
-  productId?: Prisma.StringFilter<"ProductImage"> | string
+  productId?: Prisma.StringNullableFilter<"ProductImage"> | string | null
   productVariantId?: Prisma.StringNullableFilter<"ProductImage"> | string | null
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   productVariant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
@@ -242,7 +242,7 @@ export type ProductImageOrderByWithRelationInput = {
   altText?: Prisma.SortOrderInput | Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
-  productId?: Prisma.SortOrder
+  productId?: Prisma.SortOrderInput | Prisma.SortOrder
   productVariantId?: Prisma.SortOrderInput | Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
   productVariant?: Prisma.ProductVariantOrderByWithRelationInput
@@ -257,7 +257,7 @@ export type ProductImageWhereUniqueInput = Prisma.AtLeast<{
   altText?: Prisma.StringNullableFilter<"ProductImage"> | string | null
   isPrimary?: Prisma.BoolFilter<"ProductImage"> | boolean
   sortOrder?: Prisma.IntFilter<"ProductImage"> | number
-  productId?: Prisma.StringFilter<"ProductImage"> | string
+  productId?: Prisma.StringNullableFilter<"ProductImage"> | string | null
   productVariantId?: Prisma.StringNullableFilter<"ProductImage"> | string | null
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   productVariant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
@@ -269,7 +269,7 @@ export type ProductImageOrderByWithAggregationInput = {
   altText?: Prisma.SortOrderInput | Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
-  productId?: Prisma.SortOrder
+  productId?: Prisma.SortOrderInput | Prisma.SortOrder
   productVariantId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ProductImageCountOrderByAggregateInput
   _avg?: Prisma.ProductImageAvgOrderByAggregateInput
@@ -287,7 +287,7 @@ export type ProductImageScalarWhereWithAggregatesInput = {
   altText?: Prisma.StringNullableWithAggregatesFilter<"ProductImage"> | string | null
   isPrimary?: Prisma.BoolWithAggregatesFilter<"ProductImage"> | boolean
   sortOrder?: Prisma.IntWithAggregatesFilter<"ProductImage"> | number
-  productId?: Prisma.StringWithAggregatesFilter<"ProductImage"> | string
+  productId?: Prisma.StringNullableWithAggregatesFilter<"ProductImage"> | string | null
   productVariantId?: Prisma.StringNullableWithAggregatesFilter<"ProductImage"> | string | null
 }
 
@@ -307,7 +307,7 @@ export type ProductImageUncheckedCreateInput = {
   altText?: string | null
   isPrimary?: boolean
   sortOrder?: number
-  productId: string
+  productId?: string | null
   productVariantId?: string | null
 }
 
@@ -327,7 +327,7 @@ export type ProductImageUncheckedUpdateInput = {
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productVariantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -337,7 +337,7 @@ export type ProductImageCreateManyInput = {
   altText?: string | null
   isPrimary?: boolean
   sortOrder?: number
-  productId: string
+  productId?: string | null
   productVariantId?: string | null
 }
 
@@ -355,7 +355,7 @@ export type ProductImageUncheckedUpdateManyInput = {
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productVariantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -544,7 +544,7 @@ export type ProductImageScalarWhereInput = {
   altText?: Prisma.StringNullableFilter<"ProductImage"> | string | null
   isPrimary?: Prisma.BoolFilter<"ProductImage"> | boolean
   sortOrder?: Prisma.IntFilter<"ProductImage"> | number
-  productId?: Prisma.StringFilter<"ProductImage"> | string
+  productId?: Prisma.StringNullableFilter<"ProductImage"> | string | null
   productVariantId?: Prisma.StringNullableFilter<"ProductImage"> | string | null
 }
 
@@ -563,7 +563,7 @@ export type ProductImageUncheckedCreateWithoutProductVariantInput = {
   altText?: string | null
   isPrimary?: boolean
   sortOrder?: number
-  productId: string
+  productId?: string | null
 }
 
 export type ProductImageCreateOrConnectWithoutProductVariantInput = {
@@ -634,7 +634,7 @@ export type ProductImageCreateManyProductVariantInput = {
   altText?: string | null
   isPrimary?: boolean
   sortOrder?: number
-  productId: string
+  productId?: string | null
 }
 
 export type ProductImageUpdateWithoutProductVariantInput = {
@@ -652,7 +652,7 @@ export type ProductImageUncheckedUpdateWithoutProductVariantInput = {
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ProductImageUncheckedUpdateManyWithoutProductVariantInput = {
@@ -661,7 +661,7 @@ export type ProductImageUncheckedUpdateManyWithoutProductVariantInput = {
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -738,7 +738,7 @@ export type $ProductImagePayload<ExtArgs extends runtime.Types.Extensions.Intern
     altText: string | null
     isPrimary: boolean
     sortOrder: number
-    productId: string
+    productId: string | null
     productVariantId: string | null
   }, ExtArgs["result"]["productImage"]>
   composites: {}
